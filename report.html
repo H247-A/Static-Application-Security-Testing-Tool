@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SAST Security Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+         background: #f8fafc; color: #111; padding: 32px }
+  h1 { font-size: 22px; font-weight: 700 }
+  .meta { color: #6b7280; font-size: 13px; margin: 4px 0 24px }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+           gap: 12px; margin-bottom: 28px }
+  table { width: 100%; border-collapse: collapse; background: #fff;
+           border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden;
+           font-size: 13px }
+  th { background: #f9fafb; padding: 10px 14px; text-align: left;
+        font-size: 12px; color: #6b7280; font-weight: 600; border-bottom: 1px solid #e5e7eb }
+  td { padding: 11px 14px; border-bottom: 1px solid #f3f4f6; vertical-align: top }
+  tr:last-child td { border-bottom: none }
+  tr:hover td { background: #fafafa }
+</style>
+</head>
+<body>
+  <h1>SAST Security Report</h1>
+  <p class="meta">
+    Generated: 2026-04-17 23:03:01 &nbsp;|&nbsp;
+    CMPE 279 — Software Security Technologies, SJSU
+  </p>
+
+  <div class="grid">
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:#1d4ed8">1</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:2px">Files Scanned</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:#0f766e">103</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:2px">Lines Analyzed</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:#b91c1c">21</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:2px">Total Findings</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:#7c3aed">11</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:2px">Critical</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:#dc2626">6</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:2px">High</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:16px;text-align:center">
+          <div style="font-size:26px;font-weight:700;color:#d97706">4</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:2px">Medium</div>
+        </div></div>
+
+  
+
+  <table>
+    <thead>
+      <tr>
+        <th>Severity</th><th>Rule</th><th>CWE</th><th>Title</th>
+        <th>Location</th><th>Detail</th><th>Remediation</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S011</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/798.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-798</a></td>
+          <td style="font-weight:600">Hardcoded Secret in `password`</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:20</td>
+          <td style="font-size:13px;color:#444">Credential stored in source code is exposed to anyone with repo access.</td>
+          <td style="font-size:13px;color:#15803d">Use environment variables: os.environ.get('SECRET_KEY') or a vault.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S011</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/798.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-798</a></td>
+          <td style="font-weight:600">Hardcoded Secret in `api_key`</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:21</td>
+          <td style="font-size:13px;color:#444">Credential stored in source code is exposed to anyone with repo access.</td>
+          <td style="font-size:13px;color:#15803d">Use environment variables: os.environ.get('SECRET_KEY') or a vault.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S011</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/798.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-798</a></td>
+          <td style="font-weight:600">Hardcoded Secret in `secret_key`</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:22</td>
+          <td style="font-size:13px;color:#444">Credential stored in source code is exposed to anyone with repo access.</td>
+          <td style="font-size:13px;color:#15803d">Use environment variables: os.environ.get('SECRET_KEY') or a vault.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S011</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/798.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-798</a></td>
+          <td style="font-weight:600">Hardcoded Secret in `auth_token`</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:23</td>
+          <td style="font-size:13px;color:#444">Credential stored in source code is exposed to anyone with repo access.</td>
+          <td style="font-size:13px;color:#15803d">Use environment variables: os.environ.get('SECRET_KEY') or a vault.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S001</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/89.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-89</a></td>
+          <td style="font-weight:600">SQL Injection</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:30</td>
+          <td style="font-size:13px;color:#444">SQL query is built with string formatting — attacker can inject arbitrary SQL.</td>
+          <td style="font-size:13px;color:#15803d">Use parameterised queries: cursor.execute("SELECT * FROM t WHERE id=?", (val,))</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S001</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/89.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-89</a></td>
+          <td style="font-weight:600">SQL Injection</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:36</td>
+          <td style="font-size:13px;color:#444">SQL query is built with string formatting — attacker can inject arbitrary SQL.</td>
+          <td style="font-size:13px;color:#15803d">Use parameterised queries: cursor.execute("SELECT * FROM t WHERE id=?", (val,))</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S002</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/95.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-95</a></td>
+          <td style="font-weight:600">Code Injection via eval()</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:43</td>
+          <td style="font-size:13px;color:#444">eval() executes arbitrary code — dangerous with any user-controlled input.</td>
+          <td style="font-size:13px;color:#15803d">Remove eval/exec. Use ast.literal_eval() for safe expression parsing.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S002</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/95.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-95</a></td>
+          <td style="font-weight:600">Code Injection via exec()</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:46</td>
+          <td style="font-size:13px;color:#444">exec() executes arbitrary code — dangerous with any user-controlled input.</td>
+          <td style="font-size:13px;color:#15803d">Remove eval/exec. Use ast.literal_eval() for safe expression parsing.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S004</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/502.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-502</a></td>
+          <td style="font-weight:600">Insecure Deserialization (pickle)</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:59</td>
+          <td style="font-size:13px;color:#444">pickle.loads() on untrusted data allows arbitrary code execution.</td>
+          <td style="font-size:13px;color:#15803d">Use JSON or a safe format. Never deserialise untrusted data with pickle.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S005</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/78.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-78</a></td>
+          <td style="font-weight:600">Command Injection via os.system()</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:64</td>
+          <td style="font-size:13px;color:#444">os.system() passes a string to the shell — attackable with shell metacharacters.</td>
+          <td style="font-size:13px;color:#15803d">Use subprocess.run(['cmd', arg], shell=False) with a list of arguments.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#6d28d9;color:#fff">CRITICAL</span></td>
+          <td style="font-family:monospace;font-weight:600">S005</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/78.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-78</a></td>
+          <td style="font-weight:600">Command Injection via subprocess shell=True</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:67</td>
+          <td style="font-size:13px;color:#444">shell=True passes command to /bin/sh — enables injection if input is user-controlled.</td>
+          <td style="font-size:13px;color:#15803d">Pass arguments as a list and use shell=False (the default).</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#dc2626;color:#fff">HIGH</span></td>
+          <td style="font-family:monospace;font-weight:600">S003</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/327.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-327</a></td>
+          <td style="font-weight:600">Weak Hash Algorithm (hashlib.md5)</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:51</td>
+          <td style="font-size:13px;color:#444">MD5 and SHA-1 are cryptographically broken and vulnerable to collision attacks.</td>
+          <td style="font-size:13px;color:#15803d">Use hashlib.sha256() or hashlib.sha3_256() for security-sensitive hashing.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#dc2626;color:#fff">HIGH</span></td>
+          <td style="font-family:monospace;font-weight:600">S003</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/327.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-327</a></td>
+          <td style="font-weight:600">Weak Hash Algorithm (hashlib.sha1)</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:54</td>
+          <td style="font-size:13px;color:#444">MD5 and SHA-1 are cryptographically broken and vulnerable to collision attacks.</td>
+          <td style="font-size:13px;color:#15803d">Use hashlib.sha256() or hashlib.sha3_256() for security-sensitive hashing.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#dc2626;color:#fff">HIGH</span></td>
+          <td style="font-family:monospace;font-weight:600">S006</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/295.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-295</a></td>
+          <td style="font-weight:600">SSL Certificate Verification Disabled</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:72</td>
+          <td style="font-size:13px;color:#444">verify=False disables TLS certificate checks — enables man-in-the-middle attacks.</td>
+          <td style="font-size:13px;color:#15803d">Remove verify=False. If using a custom CA, pass verify='/path/to/ca-bundle.crt'.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#dc2626;color:#fff">HIGH</span></td>
+          <td style="font-family:monospace;font-weight:600">S006</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/295.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-295</a></td>
+          <td style="font-weight:600">SSL Certificate Verification Disabled</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:75</td>
+          <td style="font-size:13px;color:#444">verify=False disables TLS certificate checks — enables man-in-the-middle attacks.</td>
+          <td style="font-size:13px;color:#15803d">Remove verify=False. If using a custom CA, pass verify='/path/to/ca-bundle.crt'.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#dc2626;color:#fff">HIGH</span></td>
+          <td style="font-family:monospace;font-weight:600">S007</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/611.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-611</a></td>
+          <td style="font-weight:600">Potential XML External Entity (XXE) Injection</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:80</td>
+          <td style="font-size:13px;color:#444">Default XML parsers may process external entities — enables file read or SSRF.</td>
+          <td style="font-size:13px;color:#15803d">Use defusedxml library: import defusedxml.ElementTree as ET</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#dc2626;color:#fff">HIGH</span></td>
+          <td style="font-family:monospace;font-weight:600">S009</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/502.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-502</a></td>
+          <td style="font-weight:600">Unsafe YAML Load</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:94</td>
+          <td style="font-size:13px;color:#444">yaml.load() without Loader= can execute arbitrary Python via !!python/object tags.</td>
+          <td style="font-size:13px;color:#15803d">Use yaml.safe_load() or pass Loader=yaml.SafeLoader explicitly.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#d97706;color:#fff">MEDIUM</span></td>
+          <td style="font-family:monospace;font-weight:600">S012</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/319.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-319</a></td>
+          <td style="font-weight:600">Insecure Module Import: telnetlib</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:11</td>
+          <td style="font-size:13px;color:#444">telnetlib sends data in plaintext — no encryption.</td>
+          <td style="font-size:13px;color:#15803d">Use paramiko or asyncssh for encrypted remote access (SSH).</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#d97706;color:#fff">MEDIUM</span></td>
+          <td style="font-family:monospace;font-weight:600">S008</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/330.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-330</a></td>
+          <td style="font-weight:600">Insecure Random Number Generation</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:85</td>
+          <td style="font-size:13px;color:#444">random module is not cryptographically secure — predictable for an attacker.</td>
+          <td style="font-size:13px;color:#15803d">Use secrets.token_hex(), secrets.randbelow(), or secrets.choice() instead.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#d97706;color:#fff">MEDIUM</span></td>
+          <td style="font-family:monospace;font-weight:600">S008</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/330.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-330</a></td>
+          <td style="font-weight:600">Insecure Random Number Generation</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:88</td>
+          <td style="font-size:13px;color:#444">random module is not cryptographically secure — predictable for an attacker.</td>
+          <td style="font-size:13px;color:#15803d">Use secrets.token_hex(), secrets.randbelow(), or secrets.choice() instead.</td>
+        </tr>
+        <tr>
+          <td><span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:4px;background:#d97706;color:#fff">MEDIUM</span></td>
+          <td style="font-family:monospace;font-weight:600">S010</td>
+          <td><a href="https://cwe.mitre.org/data/definitions/377.html"
+                 target="_blank" style="color:#2563eb;text-decoration:none">CWE-377</a></td>
+          <td style="font-weight:600">Insecure Temporary File (mktemp)</td>
+          <td style="font-family:monospace;color:#555;font-size:12px">vulnerable_app.py:99</td>
+          <td style="font-size:13px;color:#444">tempfile.mktemp() is vulnerable to TOCTOU race conditions.</td>
+          <td style="font-size:13px;color:#15803d">Use tempfile.mkstemp() or tempfile.NamedTemporaryFile() instead.</td>
+        </tr></tbody>
+  </table>
+</body>
+</html>
