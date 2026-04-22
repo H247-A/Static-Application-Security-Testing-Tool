@@ -12,6 +12,20 @@ from rules import SEVERITY_RANK, RULES_META
 
 app = Flask(__name__)
 
+# ── risk scoring ───────────────────────────────────────────────
+PENALTY = {"CRITICAL": 20, "HIGH": 10, "MEDIUM": 4, "LOW": 1}
+
+def calculate_score(findings):
+    """Returns (score 0-100, grade A-F, color hex)"""
+    penalty = sum(PENALTY.get(f.severity, 0) for f in findings)
+    score   = max(0, 100 - penalty)
+    if score >= 90: grade, color = "A", "#22c55e"
+    elif score >= 75: grade, color = "B", "#84cc16"
+    elif score >= 60: grade, color = "C", "#f59e0b"
+    elif score >= 40: grade, color = "D", "#f97316"
+    else:             grade, color = "F", "#ef4444"
+    return score, grade, color
+
 HTML = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -341,8 +355,8 @@ async function scan(){
     });
     const data = await resp.json();
     lastFindings = data.findings || [];
-    renderFindings(lastFindings, filename);
-    addToHistory(filename, lastFindings);
+    renderFindings(lastFindings, filename, data.score, data.grade, data.color);
+    addToHistory(filename, lastFindings, data.score, data.grade);
   } catch(e) {
     document.getElementById('results').innerHTML = '<div class="empty-state"><p style="color:#ef4444">Scan failed — check server.</p></div>';
   }
@@ -350,7 +364,7 @@ async function scan(){
   btn.disabled = false; btn.textContent = '▶ Scan';
 }
 
-function renderFindings(findings, filename){
+function renderFindings(findings, filename, score, grade, gradeColor){
   const bar    = document.getElementById('summary-bar');
   const fbar   = document.getElementById('filter-bar');
   const ebar   = document.getElementById('export-bar');
@@ -362,6 +376,13 @@ function renderFindings(findings, filename){
           <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
         </svg>
         <p>No vulnerabilities detected</p>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:48px;font-weight:800;color:#22c55e">A</span>
+          <div>
+            <div style="font-size:18px;font-weight:700;color:#22c55e">100 / 100</div>
+            <div style="font-size:12px;color:#64748b">Security Score</div>
+          </div>
+        </div>
       </div>`;
     bar.style.display = fbar.style.display = ebar.style.display = 'none';
     return;
@@ -375,6 +396,13 @@ function renderFindings(findings, filename){
   ebar.style.display = 'flex';
 
   bar.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-right:12px;padding-right:12px;border-right:1px solid #2d3748">
+      <span style="font-size:36px;font-weight:800;color:${gradeColor};line-height:1">${grade}</span>
+      <div>
+        <div style="font-size:16px;font-weight:700;color:${gradeColor}">${score}<span style="font-size:11px;color:#4a5568">/100</span></div>
+        <div style="font-size:10px;color:#4a5568;text-transform:uppercase;letter-spacing:.05em">Security Score</div>
+      </div>
+    </div>
     <span class="sstat"><span class="n" style="color:#e2e8f0">${findings.length}</span><span style="color:#4a5568;font-size:11px">findings</span></span>
     <span style="color:#2d3748">|</span>
     ${counts.CRITICAL?`<span class="sstat c"><span class="n">${counts.CRITICAL}</span>Critical</span>`:''}
@@ -403,10 +431,10 @@ function renderFindings(findings, filename){
 }
 
 // ── history ───────────────────────────────────────────────────
-function addToHistory(filename, findings){
+function addToHistory(filename, findings, score, grade){
   const counts = {CRITICAL:0,HIGH:0,MEDIUM:0,LOW:0};
   findings.forEach(f => { if(counts[f.severity]!==undefined) counts[f.severity]++; });
-  const entry = { filename, findings, counts, time: new Date().toLocaleTimeString() };
+  const entry = { filename, findings, counts, score, grade, time: new Date().toLocaleTimeString() };
   scanHistory.unshift(entry);
   renderHistory();
 }
@@ -420,7 +448,10 @@ function renderHistory(){
   list.innerHTML = scanHistory.map((e,i) => `
     <div class="history-item" onclick="loadHistoryItem(${i})">
       <div class="history-meta">${e.time} — ${e.findings.length} finding(s)</div>
-      <div class="history-title">${e.filename}</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:22px;font-weight:800;color:${gradeColor(e.grade)}">${e.grade}</span>
+        <div class="history-title">${e.filename}</div>
+      </div>
       <div class="history-badges">
         ${e.counts.CRITICAL?`<span class="badge badge-CRITICAL">${e.counts.CRITICAL} Critical</span>`:''}
         ${e.counts.HIGH    ?`<span class="badge badge-HIGH">${e.counts.HIGH} High</span>`:''}
@@ -432,18 +463,26 @@ function renderHistory(){
   `).join('');
 }
 
+function gradeColor(g){
+  return {A:'#22c55e',B:'#84cc16',C:'#f59e0b',D:'#f97316',F:'#ef4444'}[g]||'#94a3b8';
+}
+
 function loadHistoryItem(i){
-  lastFindings = scanHistory[i].findings;
+  const e = scanHistory[i];
+  lastFindings = e.findings;
   switchTab('findings', document.getElementById('tab-findings-btn'));
-  renderFindings(lastFindings, scanHistory[i].filename);
+  renderFindings(lastFindings, e.filename, e.score, e.grade, gradeColor(e.grade));
 }
 
 // ── export ────────────────────────────────────────────────────
 function exportJSON(){
   if(!lastFindings.length) return;
+  const entry = scanHistory[0];
   const blob = new Blob([JSON.stringify({
     tool: "SAST Security Scanner — CMPE 279",
     generated: new Date().toISOString(),
+    security_grade: entry ? entry.grade : "N/A",
+    security_score: entry ? entry.score : 0,
     total: lastFindings.length,
     findings: lastFindings
   }, null, 2)], {type:'application/json'});
@@ -462,11 +501,13 @@ function exportCSV(){
 
 function exportTXT(){
   if(!lastFindings.length) return;
+  const entry = scanHistory[0];
   const lines = [
     'SAST SECURITY REPORT',
-    'Tool: SAST Scanner — CMPE 279, SJSU Spring 2026',
-    'Generated: ' + new Date().toLocaleString(),
-    'Total Findings: ' + lastFindings.length,
+    'Tool      : SAST Scanner — CMPE 279, SJSU Spring 2026',
+    'Generated : ' + new Date().toLocaleString(),
+    `Grade     : ${entry ? entry.grade : 'N/A'}   Score: ${entry ? entry.score : 0}/100`,
+    'Findings  : ' + lastFindings.length,
     '='.repeat(60),
     ''
   ];
@@ -552,8 +593,12 @@ def scan():
     filename = data.get("filename", "code.py")
     findings = analyze_source(code, filename)
     findings.sort(key=lambda f: SEVERITY_RANK.get(f.severity, 99))
+    score, grade, color = calculate_score(findings)
     return jsonify({
         "total":    len(findings),
+        "score":    score,
+        "grade":    grade,
+        "color":    color,
         "findings": [
             {"rule_id": f.rule_id, "cwe": f.cwe, "severity": f.severity,
              "line": f.line, "col": f.col, "title": f.title,

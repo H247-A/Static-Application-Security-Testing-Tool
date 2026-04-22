@@ -1,0 +1,270 @@
+{
+  "tool": "SAST Scanner \u2014 CMPE 279",
+  "generated": "2026-04-22T12:09:10.789053",
+  "summary": {
+    "files_scanned": 1,
+    "total_findings": 23,
+    "by_severity": {
+      "CRITICAL": 11,
+      "HIGH": 8,
+      "MEDIUM": 4,
+      "LOW": 0,
+      "INFO": 0
+    }
+  },
+  "findings": [
+    {
+      "rule_id": "S011",
+      "cwe": "CWE-798",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 20,
+      "col": 0,
+      "title": "Hardcoded Secret in `password`",
+      "detail": "Credential stored in source code is exposed to anyone with repo access.",
+      "fix": "Use environment variables: os.environ.get('SECRET_KEY') or a secrets vault."
+    },
+    {
+      "rule_id": "S011",
+      "cwe": "CWE-798",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 21,
+      "col": 0,
+      "title": "Hardcoded Secret in `api_key`",
+      "detail": "Credential stored in source code is exposed to anyone with repo access.",
+      "fix": "Use environment variables: os.environ.get('SECRET_KEY') or a secrets vault."
+    },
+    {
+      "rule_id": "S011",
+      "cwe": "CWE-798",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 22,
+      "col": 0,
+      "title": "Hardcoded Secret in `secret_key`",
+      "detail": "Credential stored in source code is exposed to anyone with repo access.",
+      "fix": "Use environment variables: os.environ.get('SECRET_KEY') or a secrets vault."
+    },
+    {
+      "rule_id": "S011",
+      "cwe": "CWE-798",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 23,
+      "col": 0,
+      "title": "Hardcoded Secret in `auth_token`",
+      "detail": "Credential stored in source code is exposed to anyone with repo access.",
+      "fix": "Use environment variables: os.environ.get('SECRET_KEY') or a secrets vault."
+    },
+    {
+      "rule_id": "S001",
+      "cwe": "CWE-89",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 30,
+      "col": 4,
+      "title": "SQL Injection",
+      "detail": "SQL query built with string formatting \u2014 attacker can inject arbitrary SQL.",
+      "fix": "Use parameterised queries: cursor.execute(\"SELECT * FROM t WHERE id=?\", (val,))"
+    },
+    {
+      "rule_id": "S001",
+      "cwe": "CWE-89",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 36,
+      "col": 4,
+      "title": "SQL Injection",
+      "detail": "SQL query built with string formatting \u2014 attacker can inject arbitrary SQL.",
+      "fix": "Use parameterised queries: cursor.execute(\"SELECT * FROM t WHERE id=?\", (val,))"
+    },
+    {
+      "rule_id": "S002",
+      "cwe": "CWE-95",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 43,
+      "col": 11,
+      "title": "Code Injection via eval()",
+      "detail": "eval() executes arbitrary code \u2014 dangerous with any user-controlled input.",
+      "fix": "Remove eval/exec. Use ast.literal_eval() for safe expression parsing."
+    },
+    {
+      "rule_id": "S002",
+      "cwe": "CWE-95",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 46,
+      "col": 4,
+      "title": "Code Injection via exec()",
+      "detail": "exec() executes arbitrary code \u2014 dangerous with any user-controlled input.",
+      "fix": "Remove eval/exec. Use ast.literal_eval() for safe expression parsing."
+    },
+    {
+      "rule_id": "S004",
+      "cwe": "CWE-502",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 59,
+      "col": 11,
+      "title": "Insecure Deserialization (pickle)",
+      "detail": "pickle.loads() on untrusted data allows arbitrary code execution.",
+      "fix": "Use JSON or a safe format. Never deserialise untrusted data with pickle."
+    },
+    {
+      "rule_id": "S005",
+      "cwe": "CWE-78",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 64,
+      "col": 4,
+      "title": "Command Injection via os.system()",
+      "detail": "os.system() passes a string to the shell \u2014 attackable with shell metacharacters.",
+      "fix": "Use subprocess.run(['cmd', arg], shell=False) with a list of arguments."
+    },
+    {
+      "rule_id": "S005",
+      "cwe": "CWE-78",
+      "severity": "CRITICAL",
+      "file": "vulnerable_app.py",
+      "line": 67,
+      "col": 4,
+      "title": "Command Injection via subprocess shell=True",
+      "detail": "shell=True passes command to /bin/sh \u2014 enables injection if input is user-controlled.",
+      "fix": "Pass arguments as a list and use shell=False (the default)."
+    },
+    {
+      "rule_id": "S003",
+      "cwe": "CWE-327",
+      "severity": "HIGH",
+      "file": "vulnerable_app.py",
+      "line": 51,
+      "col": 11,
+      "title": "Weak Hash Algorithm (hashlib.md5)",
+      "detail": "MD5 and SHA-1 are cryptographically broken and vulnerable to collision attacks.",
+      "fix": "Use hashlib.sha256() or hashlib.sha3_256() instead."
+    },
+    {
+      "rule_id": "S003",
+      "cwe": "CWE-327",
+      "severity": "HIGH",
+      "file": "vulnerable_app.py",
+      "line": 54,
+      "col": 11,
+      "title": "Weak Hash Algorithm (hashlib.sha1)",
+      "detail": "MD5 and SHA-1 are cryptographically broken and vulnerable to collision attacks.",
+      "fix": "Use hashlib.sha256() or hashlib.sha3_256() instead."
+    },
+    {
+      "rule_id": "S006",
+      "cwe": "CWE-295",
+      "severity": "HIGH",
+      "file": "vulnerable_app.py",
+      "line": 72,
+      "col": 11,
+      "title": "SSL Certificate Verification Disabled",
+      "detail": "verify=False disables TLS checks \u2014 enables man-in-the-middle attacks.",
+      "fix": "Remove verify=False. Pass verify='/path/to/ca-bundle.crt' for custom CAs."
+    },
+    {
+      "rule_id": "S006",
+      "cwe": "CWE-295",
+      "severity": "HIGH",
+      "file": "vulnerable_app.py",
+      "line": 75,
+      "col": 11,
+      "title": "SSL Certificate Verification Disabled",
+      "detail": "verify=False disables TLS checks \u2014 enables man-in-the-middle attacks.",
+      "fix": "Remove verify=False. Pass verify='/path/to/ca-bundle.crt' for custom CAs."
+    },
+    {
+      "rule_id": "S007",
+      "cwe": "CWE-611",
+      "severity": "HIGH",
+      "file": "vulnerable_app.py",
+      "line": 80,
+      "col": 11,
+      "title": "XML External Entity (XXE) Injection",
+      "detail": "Default XML parsers may process external entities \u2014 enables file read or SSRF.",
+      "fix": "Use defusedxml: import defusedxml.ElementTree as ET"
+    },
+    {
+      "rule_id": "S014",
+      "cwe": "CWE-22",
+      "severity": "HIGH",
+      "file": "vulnerable_app.py",
+      "line": 93,
+      "col": 9,
+      "title": "Path Traversal via open()",
+      "detail": "open() called with a variable path \u2014 attacker may use '../' to access arbitrary files.",
+      "fix": "Validate with os.path.abspath() and verify the result starts with your base directory."
+    },
+    {
+      "rule_id": "S009",
+      "cwe": "CWE-502",
+      "severity": "HIGH",
+      "file": "vulnerable_app.py",
+      "line": 94,
+      "col": 15,
+      "title": "Unsafe YAML Load",
+      "detail": "yaml.load() without Loader= can execute arbitrary Python via !!python/object tags.",
+      "fix": "Use yaml.safe_load() or pass Loader=yaml.SafeLoader explicitly."
+    },
+    {
+      "rule_id": "S014",
+      "cwe": "CWE-22",
+      "severity": "HIGH",
+      "file": "vulnerable_app.py",
+      "line": 100,
+      "col": 9,
+      "title": "Path Traversal via open()",
+      "detail": "open() called with a variable path \u2014 attacker may use '../' to access arbitrary files.",
+      "fix": "Validate with os.path.abspath() and verify the result starts with your base directory."
+    },
+    {
+      "rule_id": "S012",
+      "cwe": "CWE-319",
+      "severity": "MEDIUM",
+      "file": "vulnerable_app.py",
+      "line": 11,
+      "col": 0,
+      "title": "Insecure Module Import: telnetlib",
+      "detail": "telnetlib sends all data including credentials in plaintext.",
+      "fix": "Use paramiko or asyncssh for encrypted SSH access."
+    },
+    {
+      "rule_id": "S008",
+      "cwe": "CWE-330",
+      "severity": "MEDIUM",
+      "file": "vulnerable_app.py",
+      "line": 85,
+      "col": 11,
+      "title": "Insecure Random Number Generation",
+      "detail": "random module is not cryptographically secure \u2014 output is predictable.",
+      "fix": "Use secrets.token_hex(), secrets.randbelow(), or secrets.choice() instead."
+    },
+    {
+      "rule_id": "S008",
+      "cwe": "CWE-330",
+      "severity": "MEDIUM",
+      "file": "vulnerable_app.py",
+      "line": 88,
+      "col": 11,
+      "title": "Insecure Random Number Generation",
+      "detail": "random module is not cryptographically secure \u2014 output is predictable.",
+      "fix": "Use secrets.token_hex(), secrets.randbelow(), or secrets.choice() instead."
+    },
+    {
+      "rule_id": "S010",
+      "cwe": "CWE-377",
+      "severity": "MEDIUM",
+      "file": "vulnerable_app.py",
+      "line": 99,
+      "col": 10,
+      "title": "Insecure Temporary File (mktemp)",
+      "detail": "tempfile.mktemp() is vulnerable to TOCTOU race conditions.",
+      "fix": "Use tempfile.mkstemp() or tempfile.NamedTemporaryFile() instead."
+    }
+  ]
+}
