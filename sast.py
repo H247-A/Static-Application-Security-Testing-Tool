@@ -2,7 +2,6 @@
 """
 sast.py — Static Application Security Testing (SAST) Tool
 CMPE 279 Software Security Technologies — SJSU Spring 2026
-Author: Harsha Vardhan Badithaboina
 
 Usage:
   python sast.py scan <file_or_dir>
@@ -90,26 +89,12 @@ def cmd_scan(args):
 # ── subcommand: list-rules ─────────────────────────────────────────────────────
 
 def cmd_list_rules(_args):
-    from rules import CALL_RULES, check_hardcoded_secret, check_dangerous_import
-    rules_meta = [
-        ("S001", "CWE-89",  "CRITICAL", "SQL Injection"),
-        ("S002", "CWE-95",  "CRITICAL", "Code Injection via eval/exec"),
-        ("S003", "CWE-327", "HIGH",     "Weak Hash Algorithm (MD5/SHA-1)"),
-        ("S004", "CWE-502", "CRITICAL", "Insecure Deserialization (pickle)"),
-        ("S005", "CWE-78",  "CRITICAL", "OS Command Injection"),
-        ("S006", "CWE-295", "HIGH",     "SSL Certificate Verification Disabled"),
-        ("S007", "CWE-611", "HIGH",     "XML External Entity (XXE)"),
-        ("S008", "CWE-330", "MEDIUM",   "Insecure Random Number Generation"),
-        ("S009", "CWE-502", "HIGH",     "Unsafe YAML Load"),
-        ("S010", "CWE-377", "MEDIUM",   "Insecure Temporary File"),
-        ("S011", "CWE-798", "CRITICAL", "Hardcoded Credentials"),
-        ("S012", "CWE-319", "MEDIUM",   "Insecure Module (telnetlib/ftplib)"),
-    ]
+    from rules import RULES_META
     print(f"\n{'ID':<6}  {'CWE':<10}  {'Severity':<10}  Description")
-    print("─" * 60)
-    for rid, cwe, sev, desc in rules_meta:
+    print("─" * 65)
+    for rid, cwe, sev, desc in RULES_META:
         print(f"{rid:<6}  {cwe:<10}  {sev:<10}  {desc}")
-    print()
+    print(f"\n  Total: {len(RULES_META)} rules\n")
 
 
 # ── main ───────────────────────────────────────────────────────────────────────
